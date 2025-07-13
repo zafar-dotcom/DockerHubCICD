@@ -3,7 +3,7 @@ name: Docker Build and Push
 on:
   push:
     branches:
-      - main  # or change this to your desired branch
+      - main
 
 jobs:
   build-and-push:
@@ -25,7 +25,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .                # 👈 The folder containing your Dockerfile & .csproj
-          file: ./Dockerfile                # 👈 The Dockerfile path
+          context: ./mydockerapp             # ✅ points to the folder with csproj & Dockerfile
+          file: ./mydockerapp/Dockerfile     # ✅ Dockerfile path
           push: true
           tags: zafar818/mydockerapp:latest
