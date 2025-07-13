@@ -8,7 +8,7 @@ namespace mydockerapp.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-            "treezoinf", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+            "treezoinf", "5454", "milly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
