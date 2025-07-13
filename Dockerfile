@@ -2,7 +2,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /app
 
-COPY *.csproj ./
+# 👇 Update: copy csproj from subfolder
+COPY ./mydockerapp/mydockerapp.csproj ./mydockerapp/
 RUN dotnet restore
 
 COPY . ./
