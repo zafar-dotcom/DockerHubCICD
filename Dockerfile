@@ -1,29 +1,30 @@
-# Build Stage
+# STAGE 1: Build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 
-# Step 1: Set base workdir
+# Set working directory
 WORKDIR /app
 
-# Step 2: Copy only the project file first
-COPY mydockerapp/mydockerapp.csproj ./mydockerapp/
+# Copy only the csproj file and restore
+COPY ./mydockerapp/mydockerapp.csproj ./mydockerapp/
 
-# Step 3: Move into the project directory
+# ⬇️ Set the working directory to where the csproj file was copied
 WORKDIR /app/mydockerapp
 
-# Step 4: Restore
+# Run restore inside the project directory
 RUN dotnet restore
 
-# Step 5: Copy the full source code
-COPY mydockerapp/. ./
+# Go back to /app and copy rest of the source
+WORKDIR /app
+COPY ./mydockerapp/. ./mydockerapp/
 
-# Step 6: Publish the app
+# Go back into the project folder to build
+WORKDIR /app/mydockerapp
 RUN dotnet publish -c Release -o /app/out
 
-# Runtime Stage
+# STAGE 2: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-# Expose and run
 EXPOSE 80
 ENTRYPOINT ["dotnet", "mydockerapp.dll"]
