@@ -25,7 +25,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./mydockerapp                # 👈 The folder containing your Dockerfile & .csproj
+          context: .                # 👈 The folder containing your Dockerfile & .csproj
           file: ./Dockerfile                # 👈 The Dockerfile path
           push: true
           tags: zafar818/mydockerapp:latest
