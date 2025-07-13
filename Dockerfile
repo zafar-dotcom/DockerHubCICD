@@ -1,14 +1,10 @@
 # Step 1: Build the app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
+WORKDIR /src
 
-# Copy only the .csproj and restore
-COPY ./mydockerapp/mydockerapp.csproj ./mydockerapp/
-WORKDIR /app/mydockerapp
+COPY ./mydockerapp/ ./mydockerapp/
+WORKDIR /src/mydockerapp
 RUN dotnet restore
-
-# Copy all other files and build the app
-COPY ./mydockerapp/. ./
 RUN dotnet publish -c Release -o /app/out
 
 # Step 2: Create runtime image
