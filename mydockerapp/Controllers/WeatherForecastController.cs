@@ -14,10 +14,10 @@ namespace mydockerapp.Controllers
             
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet(Name = "TestDeployement")]
         public async Task<IActionResult> Get()
         {
-            return Ok(new { status = "deployeed on Azure web services" });
+            return Ok(new { status = "Deployement on Azure web services" });
         }
     }
 }
