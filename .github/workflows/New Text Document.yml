@@ -28,6 +28,6 @@ jobs:
           context: .                       # 👈 Points to the root of the repo
           file: ./Dockerfile               # 👈 Dockerfile is in the root
           push: true
-          tags: |
+           tags: |
             zafar818/mydockerapp:latest
             zafar818/mydockerapp:${{ github.sha }}
