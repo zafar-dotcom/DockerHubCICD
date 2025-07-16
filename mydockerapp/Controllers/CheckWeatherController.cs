@@ -1,61 +1,46 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+
 namespace mydockerapp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TestWeatherController : ControllerBase
+    public class TestJokeController : ControllerBase
     {
         private readonly HttpClient _httpClient;
-        private const string ApiKey = "7ecb6362c58a8f26dd6a1d5d1b6c1cd1";
 
-        public TestWeatherController(IHttpClientFactory httpClientFactory)
+        public TestJokeController(IHttpClientFactory httpClientFactory)
         {
             _httpClient = httpClientFactory.CreateClient();
         }
 
-        [HttpGet("city/{city}")]
-        public async Task<IActionResult> GetWeatherForCity(string city)
+        [HttpGet("random")]
+        public async Task<IActionResult> GetRandomJoke()
         {
-           // string url = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={ApiKey}&units=metric";
-            string url= $"https://api.openweathermap.org/data/3.0/onecall?lat=31.5204&lon=74.3587&appid={ApiKey}&units=metric";
+            string url = "https://official-joke-api.appspot.com/jokes/random";
 
             HttpResponseMessage response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
-                return StatusCode((int)response.StatusCode, "Failed to fetch weather data");
+                return StatusCode((int)response.StatusCode, "Failed to fetch joke");
             }
 
             string content = await response.Content.ReadAsStringAsync();
-            var weatherData = JsonConvert.DeserializeObject<WeatherApiResponse>(content);
+            var joke = JsonConvert.DeserializeObject<JokeResponse>(content);
 
-            var result = new
+            return Ok(new
             {
-                City = weatherData.Name,
-                Temperature = weatherData.Main.Temp,
-                Condition = weatherData.Weather.FirstOrDefault()?.Main,
-                Description = weatherData.Weather.FirstOrDefault()?.Description
-            };
-
-            return Ok(result);
+                Setup = joke.Setup,
+                Punchline = joke.Punchline
+            });
         }
-        public class WeatherMain
+
+        public class JokeResponse
         {
-            public float Temp { get; set; }
+            public int Id { get; set; }
+            public string Type { get; set; }
+            public string Setup { get; set; }
+            public string Punchline { get; set; }
         }
-
-        public class WeatherDescription
-        {
-            public string Main { get; set; }
-            public string Description { get; set; }
-        }
-
-        public class WeatherApiResponse
-        {
-            public WeatherMain Main { get; set; }
-            public List<WeatherDescription> Weather { get; set; }
-            public string Name { get; set; }
-        }
-
     }
 }
