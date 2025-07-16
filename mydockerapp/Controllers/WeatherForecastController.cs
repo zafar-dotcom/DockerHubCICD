@@ -17,7 +17,7 @@ namespace mydockerapp.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public async Task<IActionResult> Get()
         {
-            return Ok(new { status = "deployeed docker image" });
+            return Ok(new { status = "deployeed on Azure web services" });
         }
     }
 }
