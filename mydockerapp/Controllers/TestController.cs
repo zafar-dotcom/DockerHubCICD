@@ -4,12 +4,12 @@ namespace mydockerapp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class TestController : ControllerBase
     {
        
 
 
-        public WeatherForecastController()
+        public TestController()
         {
             
         }
@@ -17,7 +17,7 @@ namespace mydockerapp.Controllers
         [HttpGet(Name = "TestDeployement")]
         public async Task<IActionResult> Get()
         {
-            return Ok(new { status = "Deployement on Azure web services " });
+            return Ok(new { status = "Deployement on Azure web services via github repo" });
         }
     }
 }
