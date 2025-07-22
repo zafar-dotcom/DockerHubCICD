@@ -1,14 +1,14 @@
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
 
-// Check if running inside Docker
+// Determine environment
 var isDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 
-// Bind to port 80 when in Docker
+// Only override port when in container
 if (isDocker)
 {
-    builder.WebHost.UseUrls("http://*:8080"); // ? Changed from 80 to 8080
-
+    builder.WebHost.UseUrls($"http://*:{port}");
 }
 
 builder.Services.AddControllers();
@@ -24,7 +24,7 @@ if (app.Environment.IsDevelopment() || isDocker)
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-        c.RoutePrefix = isDocker ? string.Empty : "swagger"; // In Docker, Swagger is homepage
+        c.RoutePrefix = string.Empty; // Makes Swagger UI load at root
     });
 }
 
