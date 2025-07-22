@@ -7,7 +7,8 @@ var isDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER")
 // Bind to port 80 when in Docker
 if (isDocker)
 {
-    builder.WebHost.UseUrls("http://*:80");
+    builder.WebHost.UseUrls("http://*:8080"); // ? Changed from 80 to 8080
+
 }
 
 builder.Services.AddControllers();
