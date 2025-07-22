@@ -14,7 +14,7 @@ namespace mydockerapp.Controllers
             
         }
 
-        [HttpGet(Name = "TestDeployement")]
+        [HttpGet(Name = "TestAzureDeployement")]
         public async Task<IActionResult> Get()
         {
             return Ok(new { status = "Deployement on Azure web services via github repo" });
