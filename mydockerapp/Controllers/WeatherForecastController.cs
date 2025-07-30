@@ -52,7 +52,7 @@ namespace mydockerapp.Controllers
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                 TemperatureC = Random.Shared.Next(-20, 55),
-                TemperatureF = 32 + (int)(Random.Shared.Next(-20, 55) / 0.5556),
+                // REMOVE THIS LINE: TemperatureF = 32 + (int)(Random.Shared.Next(-20, 55) / 0.5556),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)],
                 Humidity = Random.Shared.Next(20, 90),
                 WindSpeed = Math.Round(Random.Shared.NextDouble() * 20, 1),
